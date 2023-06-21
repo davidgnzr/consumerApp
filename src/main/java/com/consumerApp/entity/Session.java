@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class Session {
     @Id
-    private String sessionID;
+    private String sessionId;
 
     private String machineId;
     private Date createdDate;
