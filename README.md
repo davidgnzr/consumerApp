@@ -1,7 +1,8 @@
 # consumerApp
 Session and Event Consumer
-Environment setup
+Microservice that consumes messages of various types from a queue and stores the values.
 
+Environment setup
 KAFKA
 First, it is necessary to download Kafka, start it and create the two topics the application is waiting for.
 https://www.apache.org/dyn/closer.cgi?path=/kafka/3.5.0/kafka_2.13-3.5.0.tgz 
