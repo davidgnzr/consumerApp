@@ -17,15 +17,12 @@ public class SessionListener {
     @Autowired
     SessionRepository sessionRepository;
 
-    ObjectMapper objectMapper = new ObjectMapper();
-
+    //In charge of consuming sessions from the queue and storing them in the database.
     @KafkaListener(topics="${session.topic.name}", groupId = "${kafka.groupId.name}")
-        //In charge of consuming sessions from the queue and storing them in the database.
-    void sessionListener(String session) throws JsonProcessingException {
-        System.out.println("Session received: "+ session);
+    void sessionListener(SessionInputDto sessionInputDto) throws JsonProcessingException {
+        System.out.println("Session received: "+ sessionInputDto);
         //The open session is fetched to close it when the new one is saved.
         Optional<Session> closedSessionOpt=sessionRepository.getByEndDate(null);
-        SessionInputDto sessionInputDto=objectMapper.readValue(session,SessionInputDto.class);
         sessionRepository.save(sessionInputDto.toSession());
         if(!closedSessionOpt.isEmpty()){
             Session closedSession=closedSessionOpt.get();
