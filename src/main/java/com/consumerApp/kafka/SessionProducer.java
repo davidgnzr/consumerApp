@@ -14,7 +14,7 @@ public class SessionProducer {
     @Value("${session.topic.name}")
     private String sessionTopic;
 
-    public void sendSession(SessionInputDto sessionInputDto) {
+    public void send(SessionInputDto sessionInputDto) {
         sessionKafkaTemplate.send(sessionTopic, sessionInputDto);
     }
 }

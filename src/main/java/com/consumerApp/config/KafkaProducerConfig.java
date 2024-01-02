@@ -1,5 +1,6 @@
 package com.consumerApp.config;
 
+import com.consumerApp.entity.dto.EventInputDto;
 import com.consumerApp.entity.dto.SessionInputDto;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -37,5 +38,17 @@ public class KafkaProducerConfig {
             ProducerFactory<String,SessionInputDto> sessionProducerFactory
     ) {
         return new KafkaTemplate<>(sessionProducerFactory);
+    }
+
+    @Bean
+    public ProducerFactory<String, EventInputDto> eventProducerFactory(){
+        return new DefaultKafkaProducerFactory<>(producerConfig());
+    }
+
+    @Bean
+    public KafkaTemplate<String, EventInputDto> eventKafkaTemplate(
+            ProducerFactory<String,EventInputDto> eventProducerFactory
+    ) {
+        return new KafkaTemplate<>(eventProducerFactory);
     }
 }

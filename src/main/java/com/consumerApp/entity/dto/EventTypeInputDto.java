@@ -3,9 +3,10 @@ package com.consumerApp.entity.dto;
 import com.consumerApp.entity.Event;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 @Data
-public class EventTypeInputDto {
+public class EventTypeInputDto implements Serializable {
     private Date eventAt;
     private String eventType;
     private double numericEventValue;

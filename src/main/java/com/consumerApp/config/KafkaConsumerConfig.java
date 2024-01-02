@@ -1,5 +1,6 @@
 package com.consumerApp.config;
 
+import com.consumerApp.entity.dto.EventInputDto;
 import com.consumerApp.entity.dto.SessionInputDto;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -42,4 +43,20 @@ public class KafkaConsumerConfig {
         consumerFactory.setConsumerFactory(sessionConsumerFactory);
         return consumerFactory;
     }
+
+    @Bean
+    public ConsumerFactory<String, EventInputDto> eventConsumerFactory(){
+        return new DefaultKafkaConsumerFactory<>(consumerConfig());
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, EventInputDto> eventKafkaListenerContainerFactory(
+            ConsumerFactory<String,EventInputDto> eventConsumerFactory
+    ) {
+        ConcurrentKafkaListenerContainerFactory<String, EventInputDto> consumerFactory =
+                new ConcurrentKafkaListenerContainerFactory<>();
+        consumerFactory.setConsumerFactory(eventConsumerFactory);
+        return consumerFactory;
+    }
+
 }

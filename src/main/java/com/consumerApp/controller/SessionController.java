@@ -38,7 +38,7 @@ public class SessionController {
     @PostMapping
     public ResponseEntity sendSession(@RequestBody SessionInputDto sessionInputDto){
         try{
-            sessionProducer.sendSession(sessionInputDto);
+            sessionProducer.send(sessionInputDto);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
