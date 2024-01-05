@@ -19,11 +19,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+//To extend the features of JUnit 5 by enabling the features of Mockito
 @ExtendWith(MockitoExtension.class)
 public class EventControllerTest {
     @Mock
     private EventService eventService;
-    @InjectMocks
+    @InjectMocks  //To inject the previous mocks into the controller
     private EventController eventController;
     private EventOutputDto eventOutputDto1;
     private EventOutputDto eventOutputDto2;
@@ -43,16 +44,18 @@ public class EventControllerTest {
 
     @Test
     void getEventsBySessionIdTest() {
-        //Given
+        //Arrange-Act-Assert (AAA) Structure
+        //Given - Arrange
+        String sessionId="1";
         List<EventOutputDto> events =new ArrayList<>();
         events.add(eventOutputDto1);
         events.add(eventOutputDto2);
-        when(eventService.getEventsBySessionId("1")).thenReturn(events);
+        when(eventService.getEventsBySessionId(sessionId)).thenReturn(events);
 
-        //When -
-        ResponseEntity<?> responseEntity = eventController.getEventsBySessionId("1");
+        //When - Act
+        ResponseEntity<?> responseEntity = eventController.getEventsBySessionId(sessionId);
 
-        //Then -
+        //Then - Assert
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 }
